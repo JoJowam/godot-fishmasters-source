@@ -1,0 +1,43 @@
+# Arquivos específicos do Godot
+.godot/
+*.translation
+export_presets.cfg
+
+# Arquivos de importação
+.import/
+*.import
+
+# Arquivos compilados
+*.o
+*.os
+*.obj
+*.bc
+
+# Diretórios de build/exportação
+build/
+export/
+exports/
+bin/
+web/
+
+# Arquivos do sistema operacional
+.DS_Store
+Thumbs.db
+.directory
+
+# Arquivos de IDE/editores
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Arquivos temporários
+*.tmp
+*.temp
+*.swp
+*~
+
+# Logs e dumps
+*.log
+*.dblite
+crash.dump
