@@ -15,6 +15,7 @@ export_presets.cfg
 
 # Diretórios de build/exportação
 build/
+addons/godot-git-plugin/
 export/
 exports/
 bin/
