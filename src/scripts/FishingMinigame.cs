@@ -23,9 +23,14 @@ public partial class FishingMinigame : Node2D {
 	[Export] float hookPower = 0.2f;
 	
 	bool isPaused;
+	int fishCaughtCount;
 	
 	//TODO: Ajustar esse eventHandler amanhã. Não funcionou kk.
-	[Signal] public delegate void onFishProcessEventHandler(float progress);
+	[Signal]
+	public delegate void FishCaughtEventHandler(int count);
+
+	[Signal]
+	public delegate void FishProcessEventHandler(float progress);
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready(){
@@ -40,9 +45,7 @@ public partial class FishingMinigame : Node2D {
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta){
 		float timeDelta = (float)delta;
-		
 		if (isPaused == true){ return; }
-		
 		ProcessFish(timeDelta);
 		ProcessHook(timeDelta);
 		DetectProgress(timeDelta);
@@ -69,11 +72,11 @@ public partial class FishingMinigame : Node2D {
 		hookPosition += hookVelocity;
 		hookPosition = Mathf.Clamp(hookPosition, hookSize/2f, 1f - hookSize/2f);
 		
-		if (hookPosition == hookSize / 2f && hookVelocity < 0f){
+		if (hookPosition == hookSize/2f && hookVelocity < 0f){
 			hookVelocity = 0f;
 		}
 		
-		if (hookPosition == 1f - hookSize / 2f && hookVelocity > 0f){
+		if (hookPosition == 1f-hookSize/2f && hookVelocity > 0f){
 			hookVelocity = 0f;
 		}
 		
@@ -81,24 +84,24 @@ public partial class FishingMinigame : Node2D {
 	}
 	
 	void DetectProgress(float timeDelta){
-		float hookTopBoundry = hookPosition + hookSize / 2f;
-		float hookBottomBoundry = hookPosition - hookSize / 2f;
+		float hookTopBoundry = hookPosition + hookSize/2f;
+		float hookBottomBoundry = hookPosition - hookSize/2f;
 		
 		if (hookBottomBoundry < fishPosition && fishPosition < hookTopBoundry){
-			hookProgress += hookPower + timeDelta;
-			EmitSignal("OnFishProcess", hookProgress);
-			
+			hookProgress += hookPower * timeDelta;
+			EmitSignal(nameof(FishProcess), hookProgress);
 		}
 		
 		if (hookProgress >= 1f){
-			FishCaught();
+			onFishCaught();
 		}
 	}
 	
-	void FishCaught(){
+	void onFishCaught(){
 		GD.Print("Ta pescado!");
-		EmitSignal("onFishCaught", 1);
-		
+		isPaused = true;
+		fishCaughtCount += 1;
+		EmitSignal(nameof(FishCaught), fishCaughtCount);
 	}
 	
 	Vector2 CalculatePosition(float normalizedPosition){

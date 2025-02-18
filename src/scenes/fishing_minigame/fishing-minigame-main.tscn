@@ -6,12 +6,9 @@
 [node name="Fishing-minigame-main" type="Node"]
 
 [node name="fishing-minigame" parent="." instance=ExtResource("2_nhkuh")]
-hookPullPower = 0.04
 
 [node name="Fishing-minigame-ui" parent="." instance=ExtResource("1_xyga3")]
 offset_left = -161.0
 offset_top = -18.0
 offset_right = -161.0
 offset_bottom = -18.0
-
-[connection signal="onFishProcess" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameOnFishProcess"]

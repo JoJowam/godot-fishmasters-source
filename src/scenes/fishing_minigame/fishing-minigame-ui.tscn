@@ -27,3 +27,10 @@ texture_progress = ExtResource("1_4n2mx")
 tint_under = Color(0.313726, 0.615686, 0.619608, 0)
 tint_over = Color(0.894118, 0.678431, 0.454902, 1)
 tint_progress = Color(0.239216, 0.85098, 0.188235, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 1.0
+offset_right = 99.0
+offset_bottom = 37.0
