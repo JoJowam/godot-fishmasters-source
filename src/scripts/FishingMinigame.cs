@@ -11,7 +11,7 @@ public partial class FishingMinigame : Node2D {
 	float fishPosition;
 	float fishTargetPosition;
 	[Export] float fishThinkTime = 8f;
-	[Export] float fishMoveSpeed = 2f;
+	float fishMoveSpeed;
 	
 	float hookPosition;
 	float hookVelocity;
@@ -29,6 +29,14 @@ public partial class FishingMinigame : Node2D {
 	int xpToNextLevel = 100;
 	int level = 1;
 	
+	public enum Difficulty {
+		Easy = 1,
+		Medium = 2,
+		Hard = 3
+	}
+	
+	[Export] public Difficulty currentDifficulty = Difficulty.Easy;
+	
 	[Signal] public delegate void ProgressUpdatedEventHandler(float progress);
 	[Signal] public delegate void FishCaughtXpEventHandler(int xp);
 	[Signal] public delegate void XpUpdatedEventHandler(int xp, int maxXp, int level);
@@ -41,6 +49,8 @@ public partial class FishingMinigame : Node2D {
 		hookArea = GetNode<Node2D>("hookArea");
 		
 		fishIndicator.GlobalPosition = CalculatePosition(1f);
+		
+		SetFishSpeed();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -53,6 +63,20 @@ public partial class FishingMinigame : Node2D {
 		ProcessFish(timeDelta);
 		ProcessHook(timeDelta);
 		DetectProgress(timeDelta);
+	}
+	
+	 void SetFishSpeed(){
+		switch (currentDifficulty){
+			case Difficulty.Easy:
+				fishMoveSpeed = 1.5f;
+				break;
+			case Difficulty.Medium:
+				fishMoveSpeed = 2.5f;
+				break;
+			case Difficulty.Hard:
+				fishMoveSpeed = 4f;
+				break;
+		}
 	}
 	
 	void ProcessFish(float timeDelta){
@@ -88,16 +112,24 @@ public partial class FishingMinigame : Node2D {
 	}
 	
 	void DetectProgress(float timeDelta){
-		float hookTopBoundry = hookPosition + hookSize/2f;
-		float hookBottomBoundry = hookPosition - hookSize/2f;
-		
+		float hookTopBoundry = hookPosition + hookSize / 2f;
+		float hookBottomBoundry = hookPosition - hookSize / 2f;
+
 		if (hookBottomBoundry < fishPosition && fishPosition < hookTopBoundry){
 			AddProgress(hookPower * timeDelta);
+		} else {
+			AddProgress(-hookPower * 0.5f * timeDelta); 
 		}
-		
+
 		if (hookProgress >= 1f){
 			onFishCaught();
 		}
+		
+		if (hookProgress <= 0f){
+			onFishEscaped();
+		}
+		
+		hookProgress = Mathf.Clamp(hookProgress, 0f, 1f);
 	}
 	
 	void AddProgress(float amount){
@@ -120,6 +152,11 @@ public partial class FishingMinigame : Node2D {
 		AddXp(xpGained);
 	}
 	
+	void onFishEscaped(){
+		GD.Print("O peixe escapou!");
+		isPaused = true;
+	}
+	
 	void AddXp(int xpGained){
 		currentXp += xpGained;
 
@@ -138,6 +175,8 @@ public partial class FishingMinigame : Node2D {
 		hookVelocity = 0f;
 		SetProgress(0f);
 		isPaused = false;
+		
+		SetFishSpeed();
 	}
 	
 	Vector2 CalculatePosition(float normalizedPosition){
