@@ -12,3 +12,6 @@ offset_left = -161.0
 offset_top = -18.0
 offset_right = -161.0
 offset_bottom = -18.0
+
+[connection signal="FishCaughtXp" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameXpGained"]
+[connection signal="ProgressUpdated" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameOnFishProcess"]

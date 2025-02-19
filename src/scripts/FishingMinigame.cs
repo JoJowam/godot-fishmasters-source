@@ -25,12 +25,10 @@ public partial class FishingMinigame : Node2D {
 	bool isPaused;
 	int fishCaughtCount;
 	
-	//TODO: Ajustar esse eventHandler amanhã. Não funcionou kk.
-	[Signal]
-	public delegate void FishCaughtEventHandler(int count);
+	[Signal] public delegate void ProgressUpdatedEventHandler(float progress);
+	[Signal] public delegate void FishCaughtXpEventHandler(int xp);
 
-	[Signal]
-	public delegate void FishProcessEventHandler(float progress);
+
 	
 	// Called when the node enters the scene tree for the first time.
 	public override void _Ready(){
@@ -89,7 +87,7 @@ public partial class FishingMinigame : Node2D {
 		
 		if (hookBottomBoundry < fishPosition && fishPosition < hookTopBoundry){
 			hookProgress += hookPower * timeDelta;
-			EmitSignal(nameof(FishProcess), hookProgress);
+			EmitSignal(nameof(ProgressUpdated), hookProgress);
 		}
 		
 		if (hookProgress >= 1f){
@@ -101,7 +99,9 @@ public partial class FishingMinigame : Node2D {
 		GD.Print("Ta pescado!");
 		isPaused = true;
 		fishCaughtCount += 1;
-		EmitSignal(nameof(FishCaught), fishCaughtCount);
+		
+		int xpGained = (int)(GD.Randi() % 50 + 10);
+		EmitSignal(nameof(FishCaughtXp), xpGained);
 	}
 	
 	Vector2 CalculatePosition(float normalizedPosition){

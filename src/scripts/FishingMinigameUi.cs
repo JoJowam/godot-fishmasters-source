@@ -2,26 +2,23 @@ using Godot;
 using System;
 
 public partial class FishingMinigameUi : Control {
-	Label fishCount;
+	Label xpLabel;
 	TextureProgressBar progressBar;
 	
 	public override void _Ready(){
-		fishCount = GetNode<Label>("Label");
+		xpLabel = GetNode<Label>("Label");
 		progressBar = GetNode<TextureProgressBar>("TextureProgressBar");
 
 		FishingMinigame fishingMinigame = GetNode<FishingMinigame>("../FishingMinigame");
-	
-		// Conecta os signals do FishingMinigame aos métodos aqui definidos
-		fishingMinigame.Connect(nameof(FishingMinigame.FishCaught), new Callable(this, nameof(OnFishingMinigameOnFishCaught)));
-		fishingMinigame.Connect(nameof(FishingMinigame.FishProcess), new Callable(this, nameof(OnFishingMinigameOnFishProcess)));
+		fishingMinigame.Connect(nameof(FishingMinigame.ProgressUpdated), new Callable(this, nameof(OnFishingMinigameOnFishProcess)));
+		fishingMinigame.Connect(nameof(FishingMinigame.FishCaughtXp), new Callable(this, nameof(OnFishingMinigameXpGained)));
 	}
 
-	private void OnFishingMinigameOnFishCaught(int count){
-		fishCount.Text = count.ToString();
+	private void OnFishingMinigameXpGained(int xp){
+		xpLabel.Text = $"XP Ganhado: {xp}";
 	}
 	
 	private void OnFishingMinigameOnFishProcess(float progress){
-		// Atualiza a barra de progresso (supondo que 100 seja o máximo)
 		progressBar.Value = progress * 100f;
 	}
 }
