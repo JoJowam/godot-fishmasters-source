@@ -10,7 +10,7 @@ public partial class FishingMinigame : Node2D {
 	float fishTimer;
 	float fishPosition;
 	float fishTargetPosition;
-	[Export] float fishThinkTime = 8f;
+	[Export] float fishThinkTime = 3f;
 	float fishMoveSpeed;
 	
 	float hookPosition;
@@ -88,13 +88,24 @@ public partial class FishingMinigame : Node2D {
 		fishTimer -= timeDelta;
 		
 		if (fishTimer < 0f){
-			fishTimer = fishThinkTime * GD.Randf();
+			switch (currentDifficulty){
+				case Difficulty.Easy:
+					fishTimer = Mathf.Lerp(1.5f, 3f, GD.Randf()); //Entre 1.5s e 3s
+					break;
+				case Difficulty.Medium:
+					fishTimer = Mathf.Lerp(0.8f, 2f, GD.Randf()); //Entre 0.8s e 2s
+					break;
+				case Difficulty.Hard:
+					fishTimer = Mathf.Lerp(0.5f, 1f, GD.Randf()); //Entre 0.5s e 1s
+					break;
+			}
 			fishTargetPosition = GD.Randf();
 		}
-		
+
 		fishPosition = Mathf.Lerp(fishPosition, fishTargetPosition, fishMoveSpeed * timeDelta);
 		fishIndicator.GlobalPosition = CalculatePosition(fishPosition);
 	}
+
 	
 	void ProcessHook(float timeDelta){
 		if(Input.IsActionPressed("hook_pull")){
