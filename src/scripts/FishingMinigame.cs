@@ -43,7 +43,10 @@ public partial class FishingMinigame : Node2D {
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
 	public override void _Process(double delta){
 		float timeDelta = (float)delta;
-		if (isPaused == true){ return; }
+		if (Input.IsActionJustPressed("restart")){
+			Restart();
+		}
+		if (isPaused == true){ return; }		
 		ProcessFish(timeDelta);
 		ProcessHook(timeDelta);
 		DetectProgress(timeDelta);
@@ -102,6 +105,13 @@ public partial class FishingMinigame : Node2D {
 		
 		int xpGained = (int)(GD.Randi() % 50 + 10);
 		EmitSignal(nameof(FishCaughtXp), xpGained);
+	}
+	
+	void Restart(){
+		hookPosition = 0f;
+		hookVelocity = 0f;
+		hookProgress = 0f;
+		isPaused = false;
 	}
 	
 	Vector2 CalculatePosition(float normalizedPosition){

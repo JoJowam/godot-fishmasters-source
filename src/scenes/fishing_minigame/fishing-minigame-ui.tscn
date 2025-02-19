@@ -30,7 +30,7 @@ tint_progress = Color(0.239216, 0.85098, 0.188235, 1)
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 99.0
-offset_bottom = 37.0
+offset_left = 888.0
+offset_top = 183.0
+offset_right = 1132.0
+offset_bottom = 254.0
