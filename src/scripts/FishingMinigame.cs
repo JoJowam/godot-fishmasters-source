@@ -48,9 +48,8 @@ public partial class FishingMinigame : Node2D {
 		bottomPosition = GetNode<Node2D>("bottomPosition");
 		hookArea = GetNode<Node2D>("hookArea");
 		
-		fishIndicator.GlobalPosition = CalculatePosition(1f);
-		
 		SetFishSpeed();
+		ResetFishPosition();
 	}
 
 	// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -77,6 +76,12 @@ public partial class FishingMinigame : Node2D {
 				fishMoveSpeed = 4f;
 				break;
 		}
+	}
+	
+	void ResetFishPosition(){
+		fishPosition = 0.01f;
+		fishTargetPosition = fishPosition;
+		fishIndicator.GlobalPosition = CalculatePosition(fishPosition);
 	}
 	
 	void ProcessFish(float timeDelta){
@@ -177,6 +182,7 @@ public partial class FishingMinigame : Node2D {
 		isPaused = false;
 		
 		SetFishSpeed();
+		ResetFishPosition();
 	}
 	
 	Vector2 CalculatePosition(float normalizedPosition){
