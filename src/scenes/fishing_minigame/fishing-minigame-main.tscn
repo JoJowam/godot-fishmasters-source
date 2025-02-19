@@ -15,3 +15,4 @@ offset_bottom = -18.0
 
 [connection signal="FishCaughtXp" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameXpGained"]
 [connection signal="ProgressUpdated" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameOnFishProcess"]
+[connection signal="XpUpdated" from="fishing-minigame" to="Fishing-minigame-ui" method="OnFishingMinigameXpUpdated"]
