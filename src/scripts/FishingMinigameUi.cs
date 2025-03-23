@@ -7,13 +7,19 @@ public partial class FishingMinigameUi : Control {
 	Label xpTextLabel;
 	TextureProgressBar progressBar;
 	TextureProgressBar progressBarXp;
-	
+
 	public override void _Ready(){
 		xpLabel = GetNode<Label>("Label");
 		levelLabel = GetNode<Label>("LevelLabel");
 		xpTextLabel = GetNode<Label>("TextureProgressBarXp/XpTextLabel");
 		progressBar = GetNode<TextureProgressBar>("TextureProgressBar");
 		progressBarXp = GetNode<TextureProgressBar>("TextureProgressBarXp");
+
+		this.Visible = true;
+	}
+
+	public void ToggleUI(bool show){
+		this.Visible = show;
 	}
 
 	private void OnFishingMinigameXpGained(int xp){
