@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8d10khw8ymrp"]
 
 [ext_resource type="Texture2D" uid="uid://cjrlh0anub0hd" path="res://src/sprites/custom/white_bar.png" id="1_4n2mx"]
-[ext_resource type="Script" path="res://src/scripts/FishingMinigameUi.cs" id="1_ssfcb"]
+[ext_resource type="Script" uid="uid://c1od2pkjf1wa1" path="res://src/scripts/FishingMinigameUi.cs" id="1_ssfcb"]
 [ext_resource type="Texture2D" uid="uid://ddvfl30amkutu" path="res://src/sprites/custom/white_border.png" id="2_tjax1"]
 
 [node name="Fishing-minigame-ui" type="Control"]

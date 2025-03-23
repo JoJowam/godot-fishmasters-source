@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://d2pipdmnvve18"]
 
 [ext_resource type="Texture2D" uid="uid://yba6u6bp4y3e" path="res://src/sprites/fishing_minigame/bar_and_fishing_container.png" id="1_ncw11"]
-[ext_resource type="Script" path="res://src/scripts/FishingMinigame.cs" id="1_vtdng"]
+[ext_resource type="Script" uid="uid://b6dnpkid0d7ye" path="res://src/scripts/FishingMinigame.cs" id="1_vtdng"]
 [ext_resource type="Texture2D" uid="uid://byfcqabujapo5" path="res://src/sprites/fishing_minigame/fishing_bar.png" id="2_2s555"]
 [ext_resource type="Texture2D" uid="uid://bq8xam4yx4vsb" path="res://src/sprites/fishing_minigame/fish2.png" id="3_3wc78"]
 
