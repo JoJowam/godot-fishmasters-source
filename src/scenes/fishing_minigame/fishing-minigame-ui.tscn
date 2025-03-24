@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://b8d10khw8ymrp"]
 
 [ext_resource type="Texture2D" uid="uid://cjrlh0anub0hd" path="res://src/sprites/custom/white_bar.png" id="1_4n2mx"]
-[ext_resource type="Script" path="res://src/scripts/FishingMinigameUi.cs" id="1_ssfcb"]
+[ext_resource type="Script" uid="uid://c1od2pkjf1wa1" path="res://src/scripts/FishingMinigameUi.cs" id="1_ssfcb"]
 [ext_resource type="Texture2D" uid="uid://ddvfl30amkutu" path="res://src/sprites/custom/white_border.png" id="2_tjax1"]
 
 [node name="Fishing-minigame-ui" type="Control"]
@@ -27,3 +27,38 @@ texture_progress = ExtResource("1_4n2mx")
 tint_under = Color(0.313726, 0.615686, 0.619608, 0)
 tint_over = Color(0.894118, 0.678431, 0.454902, 1)
 tint_progress = Color(0.239216, 0.85098, 0.188235, 1)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 943.0
+offset_top = 270.0
+offset_right = 1187.0
+offset_bottom = 341.0
+
+[node name="TextureProgressBarXp" type="TextureProgressBar" parent="."]
+layout_mode = 0
+offset_left = 878.0
+offset_top = 477.0
+offset_right = 1178.0
+offset_bottom = 537.0
+rotation = -1.5703
+texture_under = ExtResource("1_4n2mx")
+texture_over = ExtResource("2_tjax1")
+texture_progress = ExtResource("1_4n2mx")
+tint_under = Color(1, 0.960784, 0.968627, 0)
+tint_over = Color(0.894118, 0.678431, 0.454902, 1)
+tint_progress = Color(0.717647, 0, 0.564706, 1)
+
+[node name="XpTextLabel" type="Label" parent="TextureProgressBarXp"]
+layout_mode = 0
+offset_left = 96.0099
+offset_top = 19.9525
+offset_right = 136.01
+offset_bottom = 42.9525
+
+[node name="LevelLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 950.0
+offset_top = 179.0
+offset_right = 990.0
+offset_bottom = 202.0

@@ -1,16 +1,39 @@
 using Godot;
 using System;
 
-public partial class FishingMinigameUi : Control{
-	
+public partial class FishingMinigameUi : Control {
+	Label xpLabel;
+	Label levelLabel;
+	Label xpTextLabel;
 	TextureProgressBar progressBar;
-	
-	// Called when the node enters the scene tree for the first time.
+	TextureProgressBar progressBarXp;
+
 	public override void _Ready(){
+		xpLabel = GetNode<Label>("Label");
+		levelLabel = GetNode<Label>("LevelLabel");
+		xpTextLabel = GetNode<Label>("TextureProgressBarXp/XpTextLabel");
 		progressBar = GetNode<TextureProgressBar>("TextureProgressBar");
+		progressBarXp = GetNode<TextureProgressBar>("TextureProgressBarXp");
+
+		this.Visible = true;
 	}
 
-	private void OnFishingMinigameOnFishProcess(double progress){
+	public void ToggleUI(bool show){
+		this.Visible = show;
+	}
+
+	private void OnFishingMinigameXpGained(int xp){
+		xpLabel.Text = $"XP Ganhado: {xp}";
+	}
+	
+	private void OnFishingMinigameOnFishProcess(float progress){
 		progressBar.Value = progress * 100f;
+	}
+	
+	private void OnFishingMinigameXpUpdated(int currentXp, int maxXp, int level){
+		progressBarXp.MaxValue = maxXp;
+		progressBarXp.Value = currentXp;
+		levelLabel.Text = $"Nível: {level}";
+		xpTextLabel.Text = $"{currentXp}/{maxXp}";
 	}
 }
